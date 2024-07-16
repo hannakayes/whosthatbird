@@ -1,19 +1,20 @@
 // src/components/EndPlatform.jsx
-import React from "react";
-import { Platform } from "./Platform";
+import React, { useEffect, useRef } from "react";
+import styles from "../styles/Platform.module.css";
 
-export class EndPlatform extends Platform {
-  constructor(gameView) {
-    super(gameView, 150, 100, 720);
-    this.temple = document.createElement("img");
-    this.temple.src = "/src/assets/images/temple-gate.png";
-    this.temple.classList.add("temple");
-    this.element.appendChild(this.temple);
-  }
+const EndPlatform = ({ top = 100, left = 720, playerRef }) => {
+  const endPlatformRef = useRef(null);
 
-  passedLevel(playerElement) {
-    const playerRect = playerElement.getBoundingClientRect();
-    const templeRect = this.temple.getBoundingClientRect();
+  useEffect(() => {
+    const platformElement = endPlatformRef.current;
+    platformElement.style.width = `150px`;
+    platformElement.style.top = `${top}px`;
+    platformElement.style.left = `${left}px`;
+  }, [top, left]);
+
+  const passedLevel = () => {
+    const playerRect = playerRef.current.getBoundingClientRect();
+    const templeRect = endPlatformRef.current.getBoundingClientRect();
 
     return (
       playerRect.left < templeRect.right &&
@@ -23,7 +24,17 @@ export class EndPlatform extends Platform {
       playerRect.left < templeRect.left &&
       playerRect.bottom <= templeRect.bottom
     );
-  }
-}
+  };
 
-export default EndPlatform; // Ensure there is a default export
+  return (
+    <div ref={endPlatformRef} className={styles.platform}>
+      <img
+        src="images/temple-gate.png"
+        className={styles.temple}
+        alt="temple"
+      />
+    </div>
+  );
+};
+
+export default EndPlatform;

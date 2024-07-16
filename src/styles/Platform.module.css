@@ -1,11 +1,11 @@
-/* Platform.module.css */
-
+/* src/styles/Platform.module.css */
 .platform {
   position: absolute;
   height: 20px;
-  background-color: brown;
-  background-image: url("../images/wall.png");
-  background-position: center;
-  background-size: contain;
-  background-repeat: repeat;
+  background-color: #8b4513; /* Example color, customize as needed */
+}
+
+.temple {
+  width: 100%; /* Ensures the image fits the platform */
+  height: auto;
 }

@@ -1,22 +1,18 @@
 // src/components/Platform.jsx
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import styles from "../styles/Platform.module.css";
 
-export class Platform {
-  constructor(gameView, width, top, left) {
-    this.gameView = gameView;
-    this.height = 20;
-    this.width = width;
-    this.top = top;
-    this.left = left;
-    this.element = document.createElement("div");
-    this.element.classList.add("platform");
+const Platform = ({ width, top, left }) => {
+  const platformRef = useRef(null);
 
-    this.element.style.width = `${this.width}px`;
-    this.element.style.top = `${this.top}px`;
-    this.element.style.left = `${this.left}px`;
+  useEffect(() => {
+    const platformElement = platformRef.current;
+    platformElement.style.width = `${width}px`;
+    platformElement.style.top = `${top}px`;
+    platformElement.style.left = `${left}px`;
+  }, [width, top, left]);
 
-    this.gameView.appendChild(this.element);
-  }
-}
+  return <div ref={platformRef} className={styles.platform}></div>;
+};
 
-export default Platform; // Ensure there is a default export
+export default Platform;

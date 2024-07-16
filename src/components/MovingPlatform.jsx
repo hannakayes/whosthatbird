@@ -1,45 +1,50 @@
-import React from "react";
-import { Platform } from "./Platform";
-import styles from "../styles/MovingPlatform.module.css";
+// src/components/MovingPlatform.jsx
+import React, { useEffect, useRef, useState } from "react";
+import styles from "../styles/Platform.module.css";
 
-export class MovingPlatform extends Platform {
-  constructor(gameView, width, top, left, vertical, ends) {
-    super(gameView, width, top, left);
-    this.speed = 1;
-    this.vertical = vertical;
-    this.ends = ends;
-    this.positionX = 0;
-    this.positionY = 0;
-    this.initializeElement();
-  }
+const MovingPlatform = ({ width, top, left, vertical, ends }) => {
+  const platformRef = useRef(null);
+  const [position, setPosition] = useState({ left, top });
+  const speed = 1;
 
-  initializeElement() {
-    this.element.classList.add(styles.movingPlatform);
-  }
+  useEffect(() => {
+    const move = () => {
+      setPosition((prev) => {
+        let newLeft = prev.left;
+        let newTop = prev.top;
 
-  move() {
-    if (this.vertical) {
-      if (this.top < this.ends.end) {
-        this.positionY = 1;
-      }
-      if (this.top > this.ends.start) {
-        this.positionY = -1;
-      }
-    } else {
-      if (this.left < this.ends.start) {
-        this.positionX = 1;
-      }
-      if (this.left > this.ends.end) {
-        this.positionX = -1;
-      }
-    }
+        if (vertical) {
+          if (newTop < ends.end) {
+            newTop += speed;
+          }
+          if (newTop > ends.start) {
+            newTop -= speed;
+          }
+        } else {
+          if (newLeft < ends.start) {
+            newLeft += speed;
+          }
+          if (newLeft > ends.end) {
+            newLeft -= speed;
+          }
+        }
 
-    this.left += this.positionX * this.speed;
-    this.top += this.positionY * this.speed;
+        return { left: newLeft, top: newTop };
+      });
+    };
 
-    this.element.style.left = `${this.left}px`;
-    this.element.style.top = `${this.top}px`;
-  }
-}
+    const interval = setInterval(move, 100);
+    return () => clearInterval(interval);
+  }, [vertical, ends]);
+
+  useEffect(() => {
+    const platformElement = platformRef.current;
+    platformElement.style.width = `${width}px`;
+    platformElement.style.left = `${position.left}px`;
+    platformElement.style.top = `${position.top}px`;
+  }, [width, position]);
+
+  return <div ref={platformRef} className={styles.platform}></div>;
+};
 
 export default MovingPlatform;
