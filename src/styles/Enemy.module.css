@@ -1,0 +1,9 @@
+/* Enemy.module.css */
+
+.enemy {
+  position: absolute;
+}
+
+.flip-image {
+  transform: scaleX(-1);
+}

@@ -1,0 +1,11 @@
+/* EndPlatform.module.css */
+
+.end-view {
+  background-color: bisque;
+  width: 900px;
+  height: 500px;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background-image: none;
+}

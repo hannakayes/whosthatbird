@@ -1,0 +1,100 @@
+/* Game.module.css */
+
+/* CSS reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+#root,
+#__next {
+  isolation: isolate;
+}
+
+/* styles */
+.press-start-2p-regular {
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+p {
+  font-size: 13px;
+}
+
+h1 {
+  margin-top: 1rem;
+  text-align: center;
+  color: darkblue;
+}
+
+.game-view {
+  background-color: aquamarine;
+  border-radius: 15px;
+  box-shadow: -3px -3px 5px rgba(0, 0, 0, 0.2),
+    -6px -6px 10px rgba(0, 0, 0, 0.15), -9px -9px 15px rgba(0, 0, 0, 0.1),
+    3px 3px 5px rgba(0, 0, 0, 0.2), 6px 6px 10px rgba(0, 0, 0, 0.15),
+    9px 9px 15px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  background-image: url("../images/mountain-bg-2.jpeg");
+  background-position: center;
+  background-size: cover;
+}
+
+.lives-container {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  top: 2px;
+  left: 2px;
+}
+
+.life {
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  background-color: darkblue;
+}

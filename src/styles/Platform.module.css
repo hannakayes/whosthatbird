@@ -1,0 +1,11 @@
+/* Platform.module.css */
+
+.platform {
+  position: absolute;
+  height: 20px;
+  background-color: brown;
+  background-image: url("../images/wall.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: repeat;
+}
