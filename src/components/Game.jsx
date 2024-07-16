@@ -7,6 +7,7 @@ import ThrowingEnemy from "../components/ThrowingEnemy";
 import MovingPlatform from "../components/MovingPlatform";
 import { PlayerWeapon } from "../components/Weapon";
 import Enemy from "./Enemy";
+import styles from "../styles/Game.module.css";
 
 const GRAVITY = 0.6;
 const TERMINAL_VELOCITY = 10;
@@ -79,7 +80,7 @@ const Game = ({ playerSounds, gameSounds }) => {
       ),
       new Enemy(
         gameViewRef.current,
-        "/src/assets/images/enemy.png",
+        "/src/assets/images/enemy-boss.png",
         newPlatforms[0],
         "enemy"
       ),
@@ -154,11 +155,7 @@ const Game = ({ playerSounds, gameSounds }) => {
   };
 
   return (
-    <div
-      ref={gameViewRef}
-      id="game-view"
-      style={{ width: "900px", height: "500px", position: "relative" }}
-    >
+    <div ref={gameViewRef} id="game-view" className={styles.gameView}>
       {player && (
         <>
           <div ref={(el) => (player.instance.element = el)} />

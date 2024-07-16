@@ -1,6 +1,6 @@
-// src/components/MovingPlatform.jsx
 import React from "react";
 import { Platform } from "./Platform";
+import styles from "../styles/MovingPlatform.module.css";
 
 export class MovingPlatform extends Platform {
   constructor(gameView, width, top, left, vertical, ends) {
@@ -10,6 +10,11 @@ export class MovingPlatform extends Platform {
     this.ends = ends;
     this.positionX = 0;
     this.positionY = 0;
+    this.initializeElement();
+  }
+
+  initializeElement() {
+    this.element.classList.add(styles.movingPlatform);
   }
 
   move() {
@@ -37,4 +42,4 @@ export class MovingPlatform extends Platform {
   }
 }
 
-export default MovingPlatform; // Ensure there is a default export
+export default MovingPlatform;

@@ -1,4 +1,3 @@
-// BasicEnemy.jsx
 import Enemy from "./Enemy";
 
 class BasicEnemy extends Enemy {

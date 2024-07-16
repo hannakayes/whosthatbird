@@ -1,6 +1,5 @@
-// Player.jsx
 import { PlayerWeapon } from "./Weapon"; // Import PlayerWeapon
-import styles from "./Player.module.css";
+import styles from "../styles/Player.module.css";
 
 const GLOBAL_VOLUME = 1; // Set your global volume
 
@@ -39,14 +38,14 @@ class Player {
     const image = document.createElement("img");
 
     image.src = "images/player-char.png";
-    image.classList.add("player-char-img");
+    image.classList.add(styles.playerCharImg);
 
     element.style.width = `${this.width}px`;
     element.style.height = `${this.height}px`;
     element.style.position = "absolute";
     element.style.top = `${this.state.top}px`;
     element.style.left = `${this.state.left}px`;
-    element.classList.add("player-char");
+    element.classList.add(styles.playerChar);
 
     element.appendChild(image);
     this.gameView.appendChild(element);
@@ -81,9 +80,9 @@ class Player {
     element.style.left = `${left}px`;
 
     if (positionX === 1) {
-      this.image.classList.remove("flip-image");
+      this.image.classList.remove(styles.flipImage);
     } else if (positionX === -1) {
-      this.image.classList.add("flip-image");
+      this.image.classList.add(styles.flipImage);
     }
   }
 

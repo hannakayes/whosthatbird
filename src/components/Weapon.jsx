@@ -1,5 +1,5 @@
-// Weapon.jsx
 import React from "react";
+import styles from "../styles/Weapon.module.css";
 
 class Weapon {
   constructor(imageSrc, owner = null, gameView) {
@@ -17,9 +17,9 @@ class Weapon {
     this.element = document.createElement("div");
     this.image = document.createElement("img");
     this.image.src = imageSrc;
-    this.image.classList.add("weapon-img");
+    this.image.classList.add(styles.weaponImg);
 
-    this.element.classList.add("weapon-element");
+    this.element.classList.add(styles.weaponElement);
     this.element.style.width = `${this.width}px`;
     this.element.style.height = `${this.height}px`;
     this.element.style.top = `${this.top}px`;
