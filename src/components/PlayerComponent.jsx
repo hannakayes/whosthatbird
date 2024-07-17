@@ -1,20 +1,16 @@
-// src/components/PlayerComponent.jsx
-import React, { useContext } from "react";
-import { GameContext } from "../context/GameContext.jsx"; // Ensure the extension is .jsx
+import React, { useEffect, forwardRef } from "react";
 import usePlayer from "../hooks/usePlayer";
 
-const PlayerComponent = ({ gameViewRef, platforms }) => {
-  const { game } = useContext(GameContext);
-  const { playerSounds } = game;
-  const { position, playerRef, jump, setPositionX, renderPlayer } = usePlayer(
-    gameViewRef,
-    platforms,
-    playerSounds
-  );
+const PlayerComponent = forwardRef(
+  ({ gameViewRef, platforms, sounds }, ref) => {
+    const { position, jump, setPositionX } = usePlayer(
+      gameViewRef,
+      platforms,
+      sounds
+    );
 
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (game) {
+    useEffect(() => {
+      const handleKeyDown = (event) => {
         switch (event.code) {
           case "KeyA":
             setPositionX(-1);
@@ -28,47 +24,43 @@ const PlayerComponent = ({ gameViewRef, platforms }) => {
           default:
             break;
         }
-      }
-    };
+      };
 
-    const handleKeyUp = (event) => {
-      if (game && (event.code === "KeyA" || event.code === "KeyD")) {
-        setPositionX(0);
-      }
-    };
+      const handleKeyUp = (event) => {
+        if (event.code === "KeyA" || event.code === "KeyD") {
+          setPositionX(0);
+        }
+      };
 
-    document.addEventListener("keydown", handleKeyDown);
-    document.addEventListener("keyup", handleKeyUp);
+      document.addEventListener("keydown", handleKeyDown);
+      document.addEventListener("keyup", handleKeyUp);
 
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      document.removeEventListener("keyup", handleKeyUp);
-    };
-  }, [game]);
+      return () => {
+        document.removeEventListener("keydown", handleKeyDown);
+        document.removeEventListener("keyup", handleKeyUp);
+      };
+    }, [jump, setPositionX]);
 
-  useEffect(() => {
-    renderPlayer();
-  }, [position]);
-
-  return (
-    <div
-      ref={playerRef}
-      className="player-char"
-      style={{
-        width: "28px",
-        height: "64px",
-        position: "absolute",
-        top: `${position.top}px`,
-        left: `${position.left}px`,
-      }}
-    >
-      <img
-        src="assets/images/player-char.png"
-        alt="Player"
-        className="player-char-img"
-      />
-    </div>
-  );
-};
+    return (
+      <div
+        ref={ref}
+        className="player-char"
+        style={{
+          width: "28px",
+          height: "64px",
+          position: "absolute",
+          top: `${position.top}px`,
+          left: `${position.left}px`,
+        }}
+      >
+        <img
+          src="assets/images/player-char.png"
+          alt="Player"
+          className="player-char-img"
+        />
+      </div>
+    );
+  }
+);
 
 export default PlayerComponent;

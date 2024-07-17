@@ -1,4 +1,20 @@
-/* EndPlatform.module.css */
+.platform {
+  position: absolute;
+  height: 20px;
+  background-color: brown;
+  background-image: url("../assets/images/wall.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: repeat;
+}
+
+.temple {
+  min-height: 64px;
+  min-width: 64px;
+  position: absolute;
+  top: -64px;
+  left: 80px;
+}
 
 .end-view {
   background-color: bisque;

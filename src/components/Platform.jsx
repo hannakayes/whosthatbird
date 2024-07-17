@@ -1,18 +1,37 @@
-// src/components/Platform.jsx
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "../styles/Platform.module.css";
+import loadImages from "../utils/importImages";
 
-const Platform = ({ width, top, left }) => {
-  const platformRef = useRef(null);
+const Platform = React.forwardRef(({ width, top, left, imageSrc }, ref) => {
+  const [images, setImages] = useState({});
 
   useEffect(() => {
-    const platformElement = platformRef.current;
-    platformElement.style.width = `${width}px`;
-    platformElement.style.top = `${top}px`;
-    platformElement.style.left = `${left}px`;
-  }, [width, top, left]);
+    const fetchImages = async () => {
+      const loadedImages = await loadImages();
+      setImages(loadedImages);
+    };
+    fetchImages();
+  }, []);
 
-  return <div ref={platformRef} className={styles.platform}></div>;
-};
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.style.width = `${width}px`;
+      ref.current.style.top = `${top}px`;
+      ref.current.style.left = `${left}px`;
+    }
+  }, [width, top, left, ref]);
+
+  return (
+    <div ref={ref} className={styles.platform}>
+      {imageSrc && images[imageSrc] && (
+        <img
+          src={images[imageSrc]}
+          alt="Platform"
+          className={styles.platformImage}
+        />
+      )}
+    </div>
+  );
+});
 
 export default Platform;

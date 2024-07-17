@@ -1,6 +1,6 @@
 // src/components/GameControls.jsx
 import React, { useContext } from "react";
-import { GameContext } from "../context/GameContext.jsx"; // Ensure the extension is .jsx
+import { GameContext } from "../context/GameContext"; // Ensure the extension is .jsx
 
 const GameControls = () => {
   const { game, startGame } = useContext(GameContext);

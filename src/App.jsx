@@ -2,7 +2,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { MantineProvider } from "@mantine/core";
-import { GameProvider } from "./context/GameContext";
+import { GameProvider } from "./context/GameContext"; // Ensure .js extension is used
 import SplashScreen from "./pages/SplashScreen";
 import GameView from "./pages/GameView";
 import EndScreen from "./pages/EndScreen";

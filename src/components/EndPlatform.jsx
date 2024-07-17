@@ -1,40 +1,55 @@
-// src/components/EndPlatform.jsx
-import React, { useEffect, useRef } from "react";
-import styles from "../styles/Platform.module.css";
+import React, { useEffect, useRef, useState } from "react";
+import styles from "../styles/EndPlatform.module.css";
+import loadImages from "../utils/importImages"; // Adjust the path if necessary
 
-const EndPlatform = ({ top = 100, left = 720, playerRef }) => {
-  const endPlatformRef = useRef(null);
+const EndPlatform = React.forwardRef(
+  ({ top = 100, left = 720, playerRef }, ref) => {
+    const [images, setImages] = useState({});
 
-  useEffect(() => {
-    const platformElement = endPlatformRef.current;
-    platformElement.style.width = `150px`;
-    platformElement.style.top = `${top}px`;
-    platformElement.style.left = `${left}px`;
-  }, [top, left]);
+    useEffect(() => {
+      const fetchImages = async () => {
+        const loadedImages = await loadImages();
+        setImages(loadedImages);
+      };
+      fetchImages();
+    }, []);
 
-  const passedLevel = () => {
-    const playerRect = playerRef.current.getBoundingClientRect();
-    const templeRect = endPlatformRef.current.getBoundingClientRect();
+    useEffect(() => {
+      if (ref.current) {
+        ref.current.style.width = `150px`;
+        ref.current.style.top = `${top}px`;
+        ref.current.style.left = `${left}px`;
+      }
+    }, [top, left, ref]);
+
+    const passedLevel = () => {
+      if (!playerRef.current || !ref.current) return false;
+
+      const playerRect = playerRef.current.getBoundingClientRect();
+      const templeRect = ref.current.getBoundingClientRect();
+
+      return (
+        playerRect.left < templeRect.right &&
+        playerRect.right > templeRect.left &&
+        playerRect.top < templeRect.bottom &&
+        playerRect.bottom > templeRect.top &&
+        playerRect.left < templeRect.left &&
+        playerRect.bottom <= templeRect.bottom
+      );
+    };
 
     return (
-      playerRect.left < templeRect.right &&
-      playerRect.right > templeRect.left &&
-      playerRect.top < templeRect.bottom &&
-      playerRect.bottom > templeRect.top &&
-      playerRect.left < templeRect.left &&
-      playerRect.bottom <= templeRect.bottom
+      <div ref={ref} className={styles.platform}>
+        {images["temple-gate.png"] && (
+          <img
+            src={images["temple-gate.png"]}
+            alt="Temple Gate"
+            className={styles.temple}
+          />
+        )}
+      </div>
     );
-  };
-
-  return (
-    <div ref={endPlatformRef} className={styles.platform}>
-      <img
-        src="images/temple-gate.png"
-        className={styles.temple}
-        alt="temple"
-      />
-    </div>
-  );
-};
+  }
+);
 
 export default EndPlatform;

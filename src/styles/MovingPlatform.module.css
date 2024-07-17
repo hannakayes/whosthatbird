@@ -2,4 +2,5 @@
 
 .moving-platform {
   position: absolute;
+  background-image: url("../assets/images/wall.png");
 }

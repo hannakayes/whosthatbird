@@ -2,7 +2,20 @@
 .platform {
   position: absolute;
   height: 20px;
-  background-color: #8b4513; /* Example color, customize as needed */
+  background-color: brown; /* Fallback color */
+  background-image: url("../assets/images/wall.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: repeat;
+}
+
+.platformImage {
+  height: 100%; /* Adjust as needed */
+  width: 100%; /* Adjust as needed */
+  position: absolute;
+  top: 0; /* Align to the top */
+  left: 0; /* Align to the left */
+  object-fit: cover; /* Ensure proper sizing */
 }
 
 .temple {

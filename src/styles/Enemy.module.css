@@ -1,9 +1,10 @@
 .enemy {
   position: absolute;
-  width: 64px;
-  height: 64px;
+  width: 64px; /* Set your width */
+  height: 64px; /* Set your height */
+  transition: left 0.1s linear, top 0.1s linear; /* Smooth movement */
 }
 
 .flipImage {
-  transform: scaleX(-1);
+  transform: scaleX(-1); /* Flip the image */
 }

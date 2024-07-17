@@ -1,34 +1,44 @@
-// src/context/GameContext.jsx
-import React, { createContext, useContext, useState } from "react";
-import useWeapons from "../hooks/useWeapons";
+import React, { createContext, useReducer } from "react";
 
-export const GameContext = createContext();
+// Create the context
+const GameContext = createContext();
 
+// Initial state for the game context
+const initialState = {
+  game: null,
+  weapons: [],
+};
+
+// Reducer function to manage state transitions
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "SET_GAME":
+      return { ...state, game: action.payload };
+    case "ADD_WEAPON":
+      return { ...state, weapons: [...state.weapons, action.payload] };
+    default:
+      return state;
+  }
+};
+
+// GameProvider component to provide the context to children
 export const GameProvider = ({ children }) => {
-  const [game, setGame] = useState(null);
-  const { weapons, addWeapon, removeWeapon } = useWeapons();
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const startGame = () => {
-    const newGame = {
-      level: 1,
-      playerSounds: {}, // Initialize as needed
-      setPlayerSounds: () => {},
-      setGameSounds: () => {},
-      nextLevel: () => {},
-      // Add any other game methods and properties you need
-    };
-    setGame(newGame);
+    const newGame = { id: 1, name: "Sample Game" }; // Replace with actual game initialization
+    dispatch({ type: "SET_GAME", payload: newGame });
   };
 
   return (
-    <GameContext.Provider
-      value={{ game, setGame, startGame, weapons, addWeapon, removeWeapon }}
-    >
+    <GameContext.Provider value={{ state, dispatch, startGame }}>
       {children}
     </GameContext.Provider>
   );
 };
 
-export const useGameContext = () => {
-  return useContext(GameContext);
-};
+// Custom hook for accessing game context
+export const useGame = () => React.useContext(GameContext);
+
+// Export GameContext for use in other components
+export { GameContext };
